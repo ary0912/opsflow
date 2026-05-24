@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getUserFromRequest } from "@/lib/middleware"
 import { getWorkflows, createWorkflow } from "@/services/workflowService"
 
+export const runtime = "nodejs"
+
 export async function GET(req: Request) {
   const user = getUserFromRequest(req)
 

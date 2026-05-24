@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { getUserFromRequest } from "@/lib/middleware"
 import { updateTask, deleteTask } from "@/services/taskService"
 
+export const runtime = "nodejs"
+
 interface RouteParams {
   params: Promise<{
     id: string

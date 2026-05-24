@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getUserFromRequest } from "@/lib/middleware"
 import { getActivityLogs } from "@/services/activityService"
 
+export const runtime = "nodejs"
+
 export async function GET(req: Request) {
   const user = getUserFromRequest(req)
 

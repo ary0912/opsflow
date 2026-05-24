@@ -36,7 +36,7 @@ export default function SignupPage() {
 
     try {
       await axios.post(
-        "/api/auth/signup",
+        "/api/auth/register",
         {
           email,
           password,

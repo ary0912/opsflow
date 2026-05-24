@@ -9,29 +9,24 @@ interface RequireAuthProps {
 }
 
 export default function RequireAuth({ children }: RequireAuthProps) {
-  const [ready] = useState<boolean>(() => {
-    try {
-      return Boolean(getAuthToken())
-    } catch {
-      return false
-    }
-  })
+  const [ready, setReady] = useState<boolean>(false)
   const router = useRouter()
 
   useEffect(() => {
     const token = getAuthToken()
     if (!token) {
       router.replace("/login")
-      return
+    } else {
+      setReady(true)
     }
   }, [router])
 
   if (!ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 text-slate-600">
-        <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900" />
-          <p>Checking your session...</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#efe7da] text-black">
+        <div className="flex flex-col items-center gap-3 rounded-[2rem] border-[4px] border-black bg-white p-8 shadow-[8px_8px_0px_#000]">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-black/15 border-t-black" />
+          <p className="font-black uppercase tracking-wider text-xs mt-2">Checking your session...</p>
         </div>
       </div>
     )

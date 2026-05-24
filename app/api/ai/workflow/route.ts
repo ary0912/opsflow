@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getUserFromRequest } from "@/lib/middleware"
 import { createAiWorkflow, previewAiWorkflow } from "@/services/aiWorkflowService"
 
+export const runtime = "nodejs"
+
 export async function POST(req: Request) {
   const user = getUserFromRequest(req)
   if (!user) {

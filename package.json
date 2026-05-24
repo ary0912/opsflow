@@ -6,7 +6,8 @@
     "dev": "NEXT_TURBOPACK=0 next dev",
     "build": "prisma generate && NEXT_TURBOPACK=0 next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
