@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String          @id @default(uuid())
+  email           String          @unique
+  password        String
+  tasks           Task[]
+  projects        Project[]
+  workflows       Workflow[]
+  aiConversations AIConversation[]
+  activities      ActivityLog[]
+  createdAt       DateTime        @default(now())
+
+  @@index([email]) // Add index for faster email lookups
+}
+
+model Project {
+  id        String    @id @default(uuid())
+  name      String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  tasks     Task[]
+  workflows Workflow[]
+  createdAt DateTime  @default(now())
+}
+
+model Task {
+  id        String    @id @default(uuid())
+  title     String
+
+  status    String    @default("todo")   // todo | in_progress | done
+  priority  String    @default("medium") // low | medium | high
+
+  dueDate   DateTime?
+
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+
+  projectId String?
+  project   Project?  @relation(fields: [projectId], references: [id])
+
+  createdAt DateTime  @default(now())
+
+  @@index([userId]) // Index for user-specific task queries
+  @@index([status]) // Index for status filtering
+  @@index([priority]) // Index for priority filtering
+  @@index([userId, status]) // Composite index for user + status queries
+  @@index([userId, priority]) // Composite index for user + priority queries
+}
+
+model Workflow {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  trigger     String   // e.g., "task_created", "task_updated", "task_completed"
+  conditions  Json?    // JSON conditions for triggering
+  actions     Json     // JSON array of actions to perform
+  isActive    Boolean  @default(true)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  projectId   String?
+  project     Project? @relation(fields: [projectId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  automationRules AutomationRule[]
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([trigger])
+}
+
+model AutomationRule {
+  id            String   @id @default(uuid())
+  workflowId    String
+  workflow      Workflow @relation(fields: [workflowId], references: [id])
+  event         String
+  actionType    String
+  actionPayload Json
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([workflowId])
+  @@index([event])
+}
+
+model AIConversation {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  message   String
+  response  Json
+  title     String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String   // e.g., "created_task", "updated_task", "deleted_task"
+  entityType String  // e.g., "task", "project", "workflow"
+  entityId  String
+  metadata  Json?    // Additional data about the action
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
