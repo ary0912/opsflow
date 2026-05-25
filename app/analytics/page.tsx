@@ -59,7 +59,10 @@ export default function AnalyticsPage() {
     setLoading(true)
     setError("")
     const token = localStorage.getItem("token") || "public"
-    const headers = token !== "public" ? { Authorization: `Bearer ${token}` } : {}
+    const headers = new Headers()
+    if (token !== "public") {
+      headers.append('Authorization', `Bearer ${token}`)
+    }
 
     try {
       const [activityRes, taskRes, workflowRes] = await Promise.all([
