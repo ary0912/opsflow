@@ -64,7 +64,7 @@ export default function TasksPage() {
     "rounded-xl border-[3px] border-black px-3 py-2 text-xs font-black uppercase shadow-[3px_3px_0px_#000] transition hover:-translate-y-0.5"
 
   return (
-    <RequireAuth>
+    <></>
       <Sidebar>
         <PageShell className="p-4 sm:p-6">
           <PageHeader
