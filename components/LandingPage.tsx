@@ -388,7 +388,7 @@ export default function LandingPage() {
 
                 <div className="mt-12 flex justify-center">
                   <Link
-                    href="/signup"
+                    href="/dashboard"
                     className="inline-flex items-center rounded-[1.5rem] border-[3px] border-black bg-[#7df9ff] px-8 py-5 text-sm font-black uppercase shadow-[6px_6px_0px_#000]"
                   >
                     Explore Platform

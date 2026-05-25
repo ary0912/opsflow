@@ -3,7 +3,6 @@
 import Sidebar from "@/components/layout/Sidebar"
 import PageHeader from "@/components/layout/PageHeader"
 import PageShell from "@/components/layout/PageShell"
-import RequireAuth from "@/components/auth/RequireAuth"
 
 import {
   BellIcon,
@@ -15,7 +14,7 @@ import {
 
 export default function SettingsPage() {
   return (
-    <RequireAuth>
+    <>
       <Sidebar>
         <PageShell className="p-4 sm:p-6">
           <PageHeader
@@ -108,6 +107,6 @@ export default function SettingsPage() {
           </p>
         </PageShell>
       </Sidebar>
-    </RequireAuth>
+    </>
   )
 }

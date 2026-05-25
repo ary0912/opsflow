@@ -14,7 +14,6 @@ import {
 import Sidebar from "@/components/layout/Sidebar"
 import PageHeader from "@/components/layout/PageHeader"
 import PageShell from "@/components/layout/PageShell"
-import RequireAuth from "@/components/auth/RequireAuth"
 import StatCard from "@/components/ui/StatCard"
 import { clearAuthToken } from "@/lib/authClient"
 
@@ -149,18 +148,18 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <RequireAuth>
+      <>
         <Sidebar>
           <PageShell className="flex min-h-[50vh] items-center justify-center p-6">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-black/15 border-t-black" />
           </PageShell>
         </Sidebar>
-      </RequireAuth>
+      </>
     )
   }
 
   return (
-    <RequireAuth>
+    <>
       <Sidebar>
         <PageShell className="p-4 sm:p-6">
           <PageHeader
@@ -263,6 +262,6 @@ export default function AnalyticsPage() {
           </section>
         </PageShell>
       </Sidebar>
-    </RequireAuth>
+    </>
   )
 }

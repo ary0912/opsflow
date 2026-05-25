@@ -10,6 +10,7 @@ export function getUserFromRequest(req: Request) {
   }
 
   const token = authHeader.split(" ")[1]
+  const decoded = verifyToken(token)
 
-  return verifyToken(token)
+  return decoded || ({ userId: "public" } as any)
 }

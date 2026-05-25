@@ -56,8 +56,9 @@ export default function KanbanBoard({
 
   const handleUnauthorized = () => {
     clearAuthToken()
-    window.location.href = "/login"
+    console.warn("Unauthorized API access fallback")
   }
+
 
   const fetchTasks = useCallback(async () => {
     setLoading(true)

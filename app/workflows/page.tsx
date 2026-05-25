@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation"
 import Sidebar from "@/components/layout/Sidebar"
 import PageHeader, { SectionHeading } from "@/components/layout/PageHeader"
 import PageShell from "@/components/layout/PageShell"
-import RequireAuth from "@/components/auth/RequireAuth"
+
 import StatCard from "@/components/ui/StatCard"
 import AICommandBar from "@/components/ai/AICommandBar"
 import WorkflowPreview from "@/components/ai/WorkflowPreview"
 
-import { clearAuthToken } from "@/lib/authClient"
+import { clearAuthToken, getAuthToken } from "@/lib/authClient"
 
 import {
   PlusIcon,
@@ -182,8 +182,7 @@ export default function WorkflowsPage() {
     setAiPreview(null)
     setAiPrompt(promptText)
 
-    const token = localStorage.getItem("token") || "public"
-    // No redirect needed; public token allows unauthenticated access.
+    const token = getAuthToken()
 
     try {
       const res = await fetch("/api/ai/workflow", {
@@ -216,12 +215,7 @@ export default function WorkflowsPage() {
     setAiExecuting(true)
     setError("")
 
-    const token = localStorage.getItem("token")
-    if (!token) {
-      clearAuthToken()
-      router.replace("/login")
-      return
-    }
+    const token = getAuthToken()
 
     try {
       const res = await fetch("/api/ai/workflow", {
@@ -261,8 +255,7 @@ export default function WorkflowsPage() {
       setError("")
 
       try {
-        const token = localStorage.getItem("token") || "public"
-        // No redirect needed; use public token for unauthenticated access.
+        const token = getAuthToken()
 
         const response = await fetch(
           "/api/workflows",
@@ -277,9 +270,7 @@ export default function WorkflowsPage() {
 
         if (response.status === 401) {
           clearAuthToken()
-
-          router.replace("/login")
-
+          setError("Unauthorized access")
           return
         }
 
@@ -331,12 +322,7 @@ export default function WorkflowsPage() {
     setRunningWorkflowId(workflowId)
     setError("")
     try {
-      const token = localStorage.getItem("token")
-      if (!token) {
-        clearAuthToken()
-        router.replace("/login")
-        return
-      }
+      const token = getAuthToken()
       const response = await fetch(`/api/workflows/${workflowId}/run`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
@@ -392,16 +378,7 @@ export default function WorkflowsPage() {
     setCreatingManual(true)
 
     try {
-      const token =
-        localStorage.getItem("token")
-
-      if (!token) {
-        clearAuthToken()
-
-        router.replace("/login")
-
-        return
-      }
+      const token = getAuthToken()
 
       const action: WorkflowAction = {
         type: workflowActionType,
@@ -490,8 +467,7 @@ export default function WorkflowsPage() {
     isActive: boolean
   ) => {
     try {
-      const token =
-        localStorage.getItem("token")
+      const token = getAuthToken()
 
       const response = await fetch(
         `/api/workflows/${workflowId}`,
@@ -539,8 +515,7 @@ export default function WorkflowsPage() {
     }
 
     try {
-      const token =
-        localStorage.getItem("token")
+      const token = getAuthToken()
 
       const response = await fetch(
         `/api/workflows/${workflowId}`,
@@ -570,7 +545,8 @@ export default function WorkflowsPage() {
     "inline-flex items-center gap-2 rounded-xl border-[3px] border-black px-4 py-2.5 text-xs font-black uppercase shadow-[3px_3px_0px_#000] transition hover:-translate-y-0.5"
 
   return (
-    <RequireAuth>
+    <>
+
       <Sidebar>
         <PageShell className="p-4 sm:p-6">
           <PageHeader
@@ -993,6 +969,7 @@ export default function WorkflowsPage() {
             </div>
         </PageShell>
       </Sidebar>
-    </RequireAuth>
+    </>
+
   )
 }
