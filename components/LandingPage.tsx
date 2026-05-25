@@ -86,17 +86,10 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="flex items-center gap-4">
             <Link
-              href="/login"
-              className="hidden text-sm font-black uppercase hover:opacity-60 md:block"
-            >
-              Login
-            </Link>
-
-            <Link
-              href="/signup"
+              href="/dashboard"
               className="rounded-full border-[3px] border-black bg-[#ff8ad8] px-6 py-3 text-sm font-black uppercase shadow-[5px_5px_0px_#000] transition-all hover:-translate-y-1"
             >
-              Start Free
+              Get Started For Free
             </Link>
           </div>
         </div>
@@ -144,10 +137,10 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="mt-14 flex justify-center">
             <Link
-              href="/signup"
+              href="/dashboard"
               className="inline-flex items-center rounded-[1.5rem] border-[3px] border-black bg-[#ff8ad8] px-8 py-5 text-sm font-black uppercase shadow-[6px_6px_0px_#000] transition-all hover:-translate-y-1"
             >
-              Start Building
+              Get Started For Free
               <ArrowRightIcon className="ml-3 h-5 w-5" />
             </Link>
           </div>
