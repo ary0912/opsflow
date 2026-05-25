@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -39,7 +41,16 @@ class MockPrismaClient {
   }
 }
 
-const prismaInstance = process.env.DATABASE_URL ? new PrismaClient() : (new MockPrismaClient() as unknown as PrismaClient);
+const createPrismaClient = () => {
+  if (!process.env.DATABASE_URL) {
+    return new MockPrismaClient() as unknown as PrismaClient;
+  }
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const adapter = new PrismaPg(pool);
+  return new PrismaClient({ adapter });
+};
+
+const prismaInstance = global.prisma || createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   global.prisma = prismaInstance;
