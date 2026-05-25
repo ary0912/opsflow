@@ -58,12 +58,7 @@ export default function AnalyticsPage() {
   const fetchAnalytics = useCallback(async () => {
     setLoading(true)
     setError("")
-    const token = localStorage.getItem("token")
-    if (!token) {
-      clearAuthToken()
-      router.replace("/login")
-      return
-    }
+    const token = localStorage.getItem("token") || "public"
 
     try {
       const headers = { Authorization: `Bearer ${token}` }

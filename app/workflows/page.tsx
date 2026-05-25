@@ -182,12 +182,8 @@ export default function WorkflowsPage() {
     setAiPreview(null)
     setAiPrompt(promptText)
 
-    const token = localStorage.getItem("token")
-    if (!token) {
-      clearAuthToken()
-      router.replace("/login")
-      return
-    }
+    const token = localStorage.getItem("token") || "public"
+    // No redirect needed; public token allows unauthenticated access.
 
     try {
       const res = await fetch("/api/ai/workflow", {
@@ -265,16 +261,8 @@ export default function WorkflowsPage() {
       setError("")
 
       try {
-        const token =
-          localStorage.getItem("token")
-
-        if (!token) {
-          clearAuthToken()
-
-          router.replace("/login")
-
-          return
-        }
+        const token = localStorage.getItem("token") || "public"
+        // No redirect needed; use public token for unauthenticated access.
 
         const response = await fetch(
           "/api/workflows",

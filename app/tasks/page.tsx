@@ -23,9 +23,9 @@ export default function TasksPage() {
 
   useEffect(() => {
     const stored = getAuthToken()
+    // If no token is present, use the public fallback user.
     if (!stored) {
-      clearAuthToken()
-      router.replace("/login")
+      setToken("public")
       return
     }
     setToken(stored)
