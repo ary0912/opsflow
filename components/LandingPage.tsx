@@ -86,7 +86,7 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="flex items-center gap-4">
             <Link
-              href="/login?callbackUrl=/dashboard"
+              href="/dashboard"
               className="rounded-full border-[3px] border-black bg-[#ff8ad8] px-6 py-3 text-sm font-black uppercase shadow-[5px_5px_0px_#000] transition-all hover:-translate-y-1"
             >
               Get Started For Free
@@ -137,7 +137,7 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="mt-14 flex justify-center">
             <Link
-              href="/login?callbackUrl=/dashboard"
+              href="/dashboard"
               className="inline-flex items-center rounded-[1.5rem] border-[3px] border-black bg-[#ff8ad8] px-8 py-5 text-sm font-black uppercase shadow-[6px_6px_0px_#000] transition-all hover:-translate-y-1"
             >
               Get Started For Free
@@ -424,8 +424,8 @@ export default function LandingPage() {
           {/* LINKS */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-black uppercase tracking-[0.16em] text-white/60">
             <Link href="/">Home</Link>
-            <Link href="/login">Login</Link>
-            <Link href="/signup">Signup</Link>
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard">Dashboard</Link>
           </div>
 
           {/* COPYRIGHT */}
