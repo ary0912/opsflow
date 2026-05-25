@@ -52,7 +52,7 @@ function LoginForm() {
         res.data.token
       )
 
-      router.push("/dashboard")
+      router.push(searchParams.get('callbackUrl') || "/dashboard")
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(

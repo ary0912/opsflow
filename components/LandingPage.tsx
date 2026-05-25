@@ -86,7 +86,7 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="flex items-center gap-4">
             <Link
-              href="/dashboard"
+              href="/login?callbackUrl=/dashboard"
               className="rounded-full border-[3px] border-black bg-[#ff8ad8] px-6 py-3 text-sm font-black uppercase shadow-[5px_5px_0px_#000] transition-all hover:-translate-y-1"
             >
               Get Started For Free
@@ -137,7 +137,7 @@ export default function LandingPage() {
           {/* CTA */}
           <div className="mt-14 flex justify-center">
             <Link
-              href="/dashboard"
+              href="/login?callbackUrl=/dashboard"
               className="inline-flex items-center rounded-[1.5rem] border-[3px] border-black bg-[#ff8ad8] px-8 py-5 text-sm font-black uppercase shadow-[6px_6px_0px_#000] transition-all hover:-translate-y-1"
             >
               Get Started For Free
