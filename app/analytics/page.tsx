@@ -59,9 +59,9 @@ export default function AnalyticsPage() {
     setLoading(true)
     setError("")
     const token = localStorage.getItem("token") || "public"
+    const headers = token !== "public" ? { Authorization: `Bearer ${token}` } : {}
 
     try {
-      const headers = { Authorization: `Bearer ${token}` }
       const [activityRes, taskRes, workflowRes] = await Promise.all([
         fetch("/api/activities?limit=50", { headers }),
         fetch("/api/tasks", { headers }),
@@ -70,7 +70,6 @@ export default function AnalyticsPage() {
 
       if ([activityRes, taskRes, workflowRes].some((r) => r.status === 401)) {
         clearAuthToken()
-        router.replace("/login")
         return
       }
 
